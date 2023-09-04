@@ -1,0 +1,55 @@
+.alert {
+  padding: 0.5rem;
+  text-align: center;
+  color: $white;
+  font-weight: $bold;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  // cuando estan en el mismo nivel se coloca el ampersand (&)
+  &.error {
+    background-color: $error;
+  }
+
+  &.success {
+    background-color: $primary;
+  }
+}
+
+.char-counter {
+  position: absolute;
+  bottom: 1rem;
+  right: 2rem;
+  font-size: 1.5rem;
+  color: gray;
+}
+
+.p-relative {
+  position: relative;
+}
+
+.char-count {
+  color: $error;
+}
+
+table.properties {
+  margin-top: 4rem;
+  width: 100%;
+  border-spacing: 0;
+
+  thead {
+    background-color: $primary;
+
+    th {
+      color: $white;
+      padding: 2rem;
+    }
+  }
+
+  .image-table {
+    width: 10rem;
+  }
+}
+
+.image-small {
+  width: 20rem;
+}

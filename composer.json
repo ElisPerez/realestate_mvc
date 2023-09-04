@@ -1,0 +1,21 @@
+{
+  "name": "leader/realestate",
+  "description": "Proyecto con POO",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Leader",
+      "email": "codewithleader@gmail.com"
+    }
+  ],
+  "require": {
+    "intervention/image": "^2.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Model\\": "./models",
+      "MVC\\": "./router",
+      "Controllers\\": "./controllers"
+    }
+  }
+}

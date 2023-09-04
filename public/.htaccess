@@ -1,0 +1,16 @@
+# Habilitar el motor de reescritura de URL
+RewriteEngine On
+
+# Establecer la base para las reescrituras de URL en la raíz del sitio
+RewriteBase /
+
+# Redirigir todas las solicitudes a index.php, excepto si es un archivo o directorio existente
+# Verificar si la solicitud no corresponde a un directorio existente (!-d)
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Verificar si la solicitud no corresponde a un archivo existente (!-f)
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# Si ambas condiciones anteriores son verdaderas, redirigir a index.php
+# [L] indica que esta es la última regla que se debe aplicar
+RewriteRule ^ index.php [L]

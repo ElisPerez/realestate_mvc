@@ -1,0 +1,42 @@
+version: '3.8'
+# Servicios
+services:
+  # Servicio para la base de datos MySQL
+  db:
+    image: mysql:8.0.34
+    container_name: db
+    mem_limit: 512m # Establece un límite de 64 megabytes de RAM
+    ports:
+      - '3306:3306' # Mapea el puerto 3306 del host al puerto 3306 del contenedor
+    command: --default-authentication-plugin=caching_sha2_password
+    restart: always # Reinicia automáticamente el contenedor en caso de fallo
+    environment:
+      MYSQL_DATABASE: ${DB_NAME} # Nombre de la base de datos
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD} # Contraseña del usuario root
+    volumes:
+      - ./docker/db/dump:/docker-entrypoint-initdb.d # Carga archivos SQL al iniciar
+      - ./docker/db/conf:/etc/mysql/conf.d # Carga configuraciones personalizadas
+      - ./docker/db/mysql:/var/lib/mysql # Persistencia de datos de MySQL
+    networks:
+      - my_network # Conecta este servicio a la red personalizada my_network
+
+  # Servicio para el servidor web Apache
+  www:
+    build: .
+    container_name: www
+    image: realestate:2.0 # Nombre y etiqueta de la imagen personalizada
+    mem_limit: 64m # Establece un límite de 64 megabytes de RAM
+    ports:
+      - '80:80' # Mapea el puerto 80 del host al puerto 80 del contenedor
+    volumes:
+      - ./public:/var/www/html # Monta la aplicación web en el directorio del contenedor
+      - .:/var/www # Agregar este volumen para el acceso a los archivos incluidos
+      - ./docker/php/config:/usr/local/etc/php/ # Configuracion de PHP
+      - ./docker/apache/config:/etc/apache2/sites-available # Configuracion de apache
+    networks:
+      - my_network # Conecta este servicio a la red personalizada my_network
+
+# Definición de la red personalizada
+networks:
+  my_network:
+    name: mynetwork # Nombre de la red personalizada

@@ -1,0 +1,20 @@
+.boton-secondary {
+  @include boton($secondary, inline-block);
+}
+
+.boton-secondary-block {
+  @include boton($secondary, block);
+}
+
+.boton-primary {
+  @include boton($primary, inline-block);
+}
+
+.boton-primary-block {
+  @include boton($primary, block);
+}
+
+.boton-error-block {
+  @include boton($error, block);
+  width: 100%;
+}
