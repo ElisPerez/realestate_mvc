@@ -19,6 +19,8 @@
   .resumen-propiedad {
     background-color: $darkGray;
     border: 1px solid $darkGray;
+    padding-left: 3rem;
+    padding-right: 3rem;
 
     .precio {
       color: $success;

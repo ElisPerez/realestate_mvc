@@ -6,16 +6,14 @@ require_once ROOT_PATH . '/../includes/app.php'; // Usa la ruta base para inclui
 use MVC\Router;
 use Controllers\PropertyController;
 use Controllers\SellerController;
+use Controllers\PagesController;
 
 $router = new Router();
 
 /** Routes */
-$router->get('/', function () {
-  echo "From Home";
-});
-$router->get('/admin', [PropertyController::class, 'index']);
-
+/** --------- PRIVATE ZONE ----------- */
 /** Properties */
+$router->get('/admin', [PropertyController::class, 'index']);
 // Create
 $router->get('/properties/create', [PropertyController::class, 'create']);
 $router->post('/properties/create', [PropertyController::class, 'create']);
@@ -34,6 +32,23 @@ $router->get('/sellers/update', [SellerController::class, 'update']);
 $router->post('/sellers/update', [SellerController::class, 'update']);
 // DELETE
 $router->post('/sellers/delete', [SellerController::class, 'delete']);
+
+/** ---------- PUBLIC ZONE ---------- */
+/** Pages */
+$router->get('/', [PagesController::class, 'home']);
+$router->get('/about-us', [PagesController::class, 'aboutUs']);
+$router->get('/properties', [PagesController::class, 'properties']);
+$router->get('/property', [PagesController::class, 'property']);
+$router->get('/blog', [PagesController::class, 'blog']);
+$router->get('/article', [PagesController::class, 'article']);
+// contacto get and post
+$router->get('/contact', [PagesController::class, 'contact']);
+$router->post('/contact', [PagesController::class, 'contact']);
+
+/** ---------- Authorization -------- */
+// $router->get('/login', []);
+// $router->post('/login', []);
+
 
 
 $router->checkRoutes();

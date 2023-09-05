@@ -91,7 +91,7 @@ Open web browser with yout project at [http://127.0.0.1:80](http://127.0.0.1:80)
 
 ### Infrastructure model
 
-![Infrastructure model](/docker/.infragenie/Infrastructure-model-docker.png)
+![Infrastructure model](/docker/.infragenie/infrastructure-model-docker.png)
 
 ## dump directory
 
@@ -109,7 +109,7 @@ Open web browser with yout project at [http://127.0.0.1:80](http://127.0.0.1:80)
 
 - La función `mysqli_fetch_assoc` devuelve una fila de la tabla cada vez que se llame. Cuando se acaban las filas devuelve null.
 
-# Errores al Eliminar un registro en la DB desde /admin
+# Errores al Eliminar un registro en la DB desde /admin (Eliminando un Vendedor)
 
 ## Se intenta eliminar un registro y aunque parece que todo sale bien no afectó la tabla en db asi que sigue apareciendo el registro que se intentó borrar. El error a continuación no se vé desde la aplicacion sino intentando hacer el query directamente en el programa TablePlus.
 
