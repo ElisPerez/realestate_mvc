@@ -117,3 +117,9 @@ Open web browser with yout project at [http://127.0.0.1:80](http://127.0.0.1:80)
   - Este error indica que no se puede eliminar este registro debido a la existencia de uno o más registros en otra tabla (properties) que tienen una relación con el ID del vendedor.
   - Para resolverlo, es necesario eliminar los registros relacionados en la tabla hija (properties) antes de eliminar el registro en la tabla padre (sellers).
     - En este caso, la tabla `sellers` es la tabla PADRE de `properties`.
+
+
+# Enviroment Variable
+ - Se instaló con COMPOSER la librería 'vlucas/phpdotenv'.
+ - Se cargaron las variables de entorno en el archivo `/includes/app.php`
+ - Ahora se puede acceder a las Variables de Entorno con las super globales `$_ENV['VARIABLE_NAME']` Y `$_SERVER['VARIABLE_NAME']`

@@ -2,10 +2,10 @@
 
 function connectDB(): mysqli
 {
-  $host = "db"; // "db" es el nombre del servicio en docker-compose.yml
-  $user = "root";
-  $password = "test";
-  $dbname = "realestate";
+  $host = $_ENV['DB_HOST']; // Como estamos trabajando con Docker NO debe ser 'localhost' en cambio debe ser el nombre del servicio dado en docker-compose.yml
+  $user = $_ENV['DB_USER'];
+  $password = $_ENV['DB_PASSWORD'];
+  $dbname = $_ENV['DB_NAME'];
 
   $db = new mysqli($host, $user, $password, $dbname);
 
