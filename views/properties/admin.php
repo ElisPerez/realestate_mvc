@@ -71,7 +71,7 @@
           <td>
             <a href="/sellers/update?id=<?php echo $seller->id; ?>" class="boton-secondary-block">Actualizar</a>
 
-            <form method="POST" class="w-100">
+            <form method="POST" class="w-100" action="/sellers/delete">
               <input type="hidden" name="id" value="<?php echo $seller->id; ?>" />
               <input type="hidden" name="type" value="seller" />
               <input type="submit" class="boton-error-block" value="Eliminar" />

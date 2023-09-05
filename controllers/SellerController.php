@@ -64,6 +64,19 @@ class SellerController
 
   public static function delete()
   {
-    echo 'Delete seller...';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      // Validar ID
+      $id = $_POST['id'];
+      $id = filter_var($id,  FILTER_VALIDATE_INT);
+
+      if ($id) {
+        $type = $_POST['type'];
+
+        if (validateTypeContent($type)) {
+          $seller = Seller::find($id);
+          $seller->delete();
+        }
+      }
+    }
   }
 }

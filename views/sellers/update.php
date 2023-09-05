@@ -11,7 +11,7 @@
 
   <?php endforeach; ?>
 
-  <form method="POST" class="formulario" action="/sellers/update">
+  <form method="POST" class="formulario">
 
     <?php include 'form.php'; ?>
 

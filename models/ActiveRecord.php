@@ -84,13 +84,16 @@ class ActiveRecord
   // Eliminar registro en DB
   public function delete()
   {
-    $query = "DELETE FROM " . static::$table . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+    $query = "DELETE FROM " . static::$table . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1;";
+
     $result_set = self::$db->query($query);
 
     if ($result_set) {
       $this->deleteImage();
 
       header('location: /admin?result=3');
+    } else {
+      echo "<h2>NOTA LIDER: Hubo un error al hacer la query. Puede que el Vendedor no se pueda borrar por que está vinculado a la tabla Propiedades, hay que quitar la relación o volver e intentar eliminar otro vendedor que no tenga vinculos con ninguna tabla</h2>";
     }
   }
 
