@@ -17,6 +17,9 @@
   - Parámetros:
     - `-a`: Muestra todos los contenedores tanto activos como detenidos.
     - `-q`: Muestra solo los IDs de los contenedores en vez de toda la información detallada.
+    - `-a -f status=exited`: Muestra solo los contenedores detenido (Exited)
+    - `-a -q -f status=exited`: Muestra solo los IDs de contenedores detenido (Exited)
+    - `--no-trunc`: Para no cortar el texto de salida, muestra todo con detalles. A veces el texto es muy largo y no cabe en la columna asi que docker corta el texto. Si queremos saber toda la info usamos --no-trunc.
 
 - `docker images`
   Lista las imágenes de Docker disponibles en tu sistema.
