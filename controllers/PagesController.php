@@ -59,6 +59,13 @@ class PagesController
   public static function contact(Router $router)
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $data = $_POST['contact'];
+
+      // Formatear hora a am/pm
+      $formatted_time = timeFormat($data['time']);
+      // Formatear fecha a "Wednesday, September 6, 2023" and "miércoles 06 septiembre 2023"
+      $formatted_date = dateFormat($data['date']);
+
       /** Crear instancia de PHPMAILER y configurar SMTP */
       $phpmailer = new PHPMailer();
       // Configurar SMTP (Simple Mail Transfer Protocol)
@@ -80,7 +87,18 @@ class PagesController
       $phpmailer->CharSet = 'UTF-8'; // UTF-8: Unicode Transformation Format - 8 bits.
 
       // Definir el contenido
-      $body = '<html><p>Cuerpo del mensaje</p></html>';
+      $body  = '<html>';
+      $body .= '<p>Tienes un nuevo mensaje</p>';
+      $body .= '<p>Nombre: ' . $data['name'] . '</p>';
+      $body .= '<p>Email: ' . $data['email'] . '</p>';
+      $body .= '<p>Teléfono: ' . $data['phone'] . '</p>';
+      $body .= '<p>Mensaje: ' . $data['message'] . '</p>';
+      $body .= '<p>Vende o Compra: ' . $data['type'] . '</p>';
+      $body .= '<p>Precio o Presupuesto: $' . $data['price'] . '</p>';
+      $body .= '<p>Contactar por: ' . $data['contact'] . '</p>';
+      $body .= '<p>Fecha a contactar: ' . $formatted_date . '</p>';
+      $body .= '<p>Hora a contactar: ' . $formatted_time . '</p>';
+      $body .= '</html>';
       $phpmailer->Body = $body;
       $phpmailer->AltBody = 'Este es texto alternativo sin HTML';
 
