@@ -20,6 +20,11 @@ class Router
 
   public function checkRoutes()
   {
+    session_start();
+    $auth = $_SESSION['login'] ?? null;
+    // Array de rutas protegidas
+    $protected_routes = ['/admin', '/properties/create', '/properties/update', '/properties/delete', '/sellers/create', '/sellers/update', '/sellers/delete'];
+
     // $current_url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); // Ignora los parámetros de consulta, PATH_INFO está deprecated.
     $current_url = $_SERVER['REDIRECT_URL'] ?? '/'; // Otra opción más fácil
     $method = $_SERVER['REQUEST_METHOD'];
@@ -28,6 +33,16 @@ class Router
       $fn = $this->routesGET[$current_url] ?? null;
     } else {
       $fn = $this->routesPOST[$current_url] ?? null;
+    }
+
+    // Proteger las rutas
+    if (in_array($current_url, $protected_routes) && !$auth) {
+      header('Location: /login');
+    }
+
+    // Si está autenticado no le permitirá ingresar a "/login"
+    if ($current_url === '/login' && $auth) {
+      header('location: /admin');
     }
 
     if ($fn) {

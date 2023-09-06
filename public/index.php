@@ -3,6 +3,7 @@
 define('ROOT_PATH', __DIR__); // Ruta base del archivo index.php
 require_once ROOT_PATH . '/../includes/app.php'; // Usa la ruta base para incluir app.php
 
+use Controllers\LoginController;
 use MVC\Router;
 use Controllers\PropertyController;
 use Controllers\SellerController;
@@ -46,9 +47,9 @@ $router->get('/contact', [PagesController::class, 'contact']);
 $router->post('/contact', [PagesController::class, 'contact']);
 
 /** ---------- Authorization -------- */
-// $router->get('/login', []);
-// $router->post('/login', []);
-
+$router->get('/login', [LoginController::class, 'login']);
+$router->post('/login', [LoginController::class, 'login']);
+$router->get('/logout', [LoginController::class, 'logout']);
 
 
 $router->checkRoutes();
