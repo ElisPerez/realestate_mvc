@@ -1,13 +1,13 @@
+// ! Limpiar cache si no se reflejan los cambios
+
 document.addEventListener('DOMContentLoaded', function () {
   eventListeners();
 
   darkMode();
 
   const pathname = window.location.pathname;
-  const routesCharCounter = [
-    '/admin/properties/update.php',
-    '/admin/properties/create.php',
-  ];
+  // console.log(pathname);
+  const routesCharCounter = ['/properties/update', '/properties/create'];
 
   if (routesCharCounter.includes(pathname)) {
     charCounterHandler();
@@ -44,6 +44,39 @@ function eventListeners() {
   const mobileMenu = document.querySelector('.mobile-menu');
 
   mobileMenu.addEventListener('click', navegacionResponsive);
+
+  // Muestra campos condicionales
+  const contactMethod = document.querySelectorAll(
+    'input[name="contact[contact]"]'
+  );
+
+  contactMethod.forEach((input) =>
+    input.addEventListener('click', showContactMethod)
+  );
+}
+
+function showContactMethod(e) {
+  const contactDiv = document.querySelector('#contact');
+
+  if (e.target.value === 'Telefono') {
+    contactDiv.innerHTML = `
+    <label for="phone">Número de Teléfono</label>
+    <input type="tel" name="contact[phone]" id="phone" placeholder="Tu Teléfono" required />
+
+    <p>Elija la fecha y hora para la llamada</p>
+
+      <label for="date">Fecha:</label>
+      <input type="date" name="contact[date]" id="date" required />
+
+      <label for="time">Hora:</label>
+      <input type="time" name="contact[time]" id="time" min="09:00" max="18:00" required />
+    `;
+  } else {
+    contactDiv.innerHTML = `
+      <label for="email">E-mail</label>
+      <input type="email" name="contact[email]" id="email" placeholder="Tu Email" required />
+    `;
+  }
 }
 
 function navegacionResponsive() {

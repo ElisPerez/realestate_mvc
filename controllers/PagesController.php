@@ -58,13 +58,10 @@ class PagesController
 
   public static function contact(Router $router)
   {
+    $message = null;
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $data = $_POST['contact'];
-
-      // Formatear hora a am/pm
-      $formatted_time = timeFormat($data['time']);
-      // Formatear fecha a "Wednesday, September 6, 2023" and "miércoles 06 septiembre 2023"
-      $formatted_date = dateFormat($data['date']);
 
       /** Crear instancia de PHPMAILER y configurar SMTP */
       $phpmailer = new PHPMailer();
@@ -90,14 +87,25 @@ class PagesController
       $body  = '<html>';
       $body .= '<p>Tienes un nuevo mensaje</p>';
       $body .= '<p>Nombre: ' . $data['name'] . '</p>';
-      $body .= '<p>Email: ' . $data['email'] . '</p>';
-      $body .= '<p>Teléfono: ' . $data['phone'] . '</p>';
       $body .= '<p>Mensaje: ' . $data['message'] . '</p>';
       $body .= '<p>Vende o Compra: ' . $data['type'] . '</p>';
       $body .= '<p>Precio o Presupuesto: $' . $data['price'] . '</p>';
       $body .= '<p>Contactar por: ' . $data['contact'] . '</p>';
-      $body .= '<p>Fecha a contactar: ' . $formatted_date . '</p>';
-      $body .= '<p>Hora a contactar: ' . $formatted_time . '</p>';
+
+      // Enviar en forma condicional
+      if ($data['contact'] === 'Telefono') {
+        $body .= '<p>Teléfono: ' . $data['phone'] . '</p>';
+        // Formatear hora a am/pm
+        $formatted_time = timeFormat($data['time']);
+        // Formatear fecha a "Wednesday, September 6, 2023"
+        $formatted_date = dateFormat($data['date']);
+        $body .= '<p>Fecha a contactar: ' . $formatted_date . '</p>';
+        $body .= '<p>Hora a contactar: ' . $formatted_time . '</p>';
+      } else {
+        // Eligió email
+        $body .= '<p>Email: ' . $data['email'] . '</p>';
+      }
+
       $body .= '</html>';
       $phpmailer->Body = $body;
       $phpmailer->AltBody = 'Este es texto alternativo sin HTML';
@@ -106,12 +114,14 @@ class PagesController
       $wasSend = $phpmailer->send();
 
       if ($wasSend) {
-        echo 'Mensaje enviado correctamente';
+        $message = 'Mensaje enviado correctamente';
       } else {
-        echo 'El mensaje no se pudo enviar';
+        $message = 'El mensaje no se pudo enviar';
       }
     }
 
-    $router->render('pages/contact');
+    $router->render('pages/contact', [
+      'message' => $message
+    ]);
   }
 }
