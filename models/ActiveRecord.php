@@ -71,7 +71,7 @@ class ActiveRecord
     $query  = "UPDATE " . static::$table . " SET ";
     $query .= join(', ', $values);
     $query .= " WHERE id = '" . self::$db->escape_string($this->id) . "' ";
-    $query .= " LIMIT 1 ";
+    $query .= " LIMIT 1";
 
     $result_set = self::$db->query($query);
 
